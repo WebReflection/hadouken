@@ -1,8 +1,8 @@
 // test
-var howMany = 10000;
+var howMany = 1000;
 
 var time = Date.now();
-var T = hadouken('<div><h3>{{title}}</h3><p>{{before}} <a href="{{href}}">{{inside}}</a> {{after}}</p></div>');
+var T = hadouken('<div><h3>{{title}}</h3><p>{{before}} <a href="{{href}}">{{inside}}</a> {{after}}</p><ul><li>{{list}}</li></ul></div>');
 time = Date.now() - time;
 console.log("it took ", +time, " to generate the template constructor");
 
@@ -16,11 +16,16 @@ document.body.appendChild(fragment);
 
 function updateThemAll() {
   for (var i = 0, allObjects = []; i < howMany; allObjects[i++] = {
-    title: Math.random(),
+    title: "title " + i,
     before: Math.random(),
     href: "http://webreflection.blogspot.com/?" + Math.random(),
     inside: Math.random(),
-    after: Math.random()
+    after: Math.random(),
+    list: [
+      Math.random(),
+      Math.random(),
+      Math.random()
+    ]
   });
 
   time = Date.now();

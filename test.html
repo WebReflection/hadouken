@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-language" content="en-US"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <script src="src/hadouken.js"></script>
+    <script>
+    this.onload = function () {
+      var howMany = 500;
+      var allTimes = [];
+      var time = Date.now();
+      var T = hadouken('<div><h3>{{title}}</h3><p>{{before}} <a href="{{href}}">{{inside}}</a> {{after}}</p><ul><li>{{list}}</li></ul></div>');
+      time = Date.now() - time;
+      allTimes.push(time);
+      //console.log("it took ", +time, " to generate the template constructor");
+
+      time = Date.now();
+      for (var i = 0, allNodes = []; i < howMany; allNodes[i++] = new T);
+      time = Date.now() - time;
+      allTimes.push(time);
+      //console.log("it took ", +time, " to generate ", allNodes.length, " template nodes");
+
+      for (var i = 0, fragment = document.createDocumentFragment(); i < howMany; fragment.appendChild(allNodes[i++].root));
+      document.body.appendChild(fragment);
+
+      function updateThemAll() {
+        for (var i = 0, allObjects = []; i < howMany; allObjects[i++] = {
+          title: "title " + i,
+          before: Math.random(),
+          href: "http://webreflection.blogspot.com/?" + Math.random(),
+          inside: Math.random(),
+          after: Math.random(),
+          list: [
+            Math.random(),
+            Math.random(),
+            Math.random()
+          ]
+        });
+        time = Date.now();
+        for (var i = 0; i < howMany; i++) {
+          allNodes[i].update(allObjects[i]);
+        }
+        time = Date.now() - time;
+        allTimes[allTimes.length - 1] = time;
+        //console.log("it took ", +time, " to update all generated nodes");
+        document.title = [].concat(allTimes, document.body.getElementsByTagName("*").length).join(", ");
+      }
+
+      allTimes.push(0);
+      updateThemAll();
+
+      setInterval(updateThemAll, 5000);
+    };
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

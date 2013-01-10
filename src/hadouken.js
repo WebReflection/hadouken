@@ -81,10 +81,42 @@ this.hadouken = function () {
       "root", "return root." + sub.reverse().join(".") + (attribute || "")
     );
   }
-  function update(data) {
-    for (var key in data)
-      this.map[key].nodeValue = data[key]
+  function updateEach(node, list) {
+    var
+      parentNode = node.parentNode,
+      i = 0,
+      current,
+      last
     ;
+    while (current = parentNode.firstChild)
+      parentNode.removeChild(current)
+    ;
+    current = document.createDocumentFragment();
+    while (i < list.length)
+      current.appendChild(
+        last = node.cloneNode(true)
+      ).firstChild.nodeValue = list[i++]
+    ;
+    parentNode.appendChild(current);
+    return (last || parentNode.appendChild(node)).firstChild;
+  }
+  function update(data) {
+    var
+      map = this.map,
+      key, field, node
+    ;
+    for (var key in data) {
+      field = data[key];
+      node = map[key];
+      if (typeof field == "object" && field) {
+        map[key] = updateEach(
+          node.parentNode,
+          field
+        );
+      } else
+        node.nodeValue = field
+      ;
+    }
     return this;
   }
   return function hadouken(key) {
