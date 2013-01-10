@@ -1,0 +1,31 @@
+{
+  "name": "hadouken",
+  "version": "0.0.1",
+  "description": "just a blazing fast DOM based template engine experiment",
+  "homepage": "https://github.com/WebReflection/hadouken",
+  "keywords": [
+    "DOM",
+    "template",
+    "performance",
+    "fast"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://mths.be/mit"
+    }
+  ],
+  "author": "Andrea Giammarchi <andrea.giammarchi@gmail.com> (http://webreflection.blogspot.com/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/WebReflection/hadouken.git"
+  },
+  "main": "./src/hadouken.js",
+  "engines": [
+    "node",
+    "rhino"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
